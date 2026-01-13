@@ -28,13 +28,13 @@ export const authService = {
     const token = jwt.sign(
       { id: user.id, email: user.email },
       config.jwt.secret,
-      { expiresIn: config.jwt.expiresIn }
+      { expiresIn: config.jwt.expiresIn } as jwt.SignOptions
     );
 
     const refreshToken = jwt.sign(
       { id: user.id },
       config.jwt.refreshSecret,
-      { expiresIn: config.jwt.refreshExpiresIn }
+      { expiresIn: config.jwt.refreshExpiresIn } as jwt.SignOptions
     );
 
     return {
@@ -73,7 +73,7 @@ export const authService = {
     const token = jwt.sign(
       { id: user.id, email: user.email },
       config.jwt.secret,
-      { expiresIn: config.jwt.expiresIn }
+      { expiresIn: config.jwt.expiresIn } as jwt.SignOptions
     );
 
     return {

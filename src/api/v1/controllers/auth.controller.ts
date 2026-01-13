@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { authService } from '@/domain/auth/services/auth.service';
 import { AppError } from '@/shared/errors/AppError';
+import { successResponse } from '@shared/utils/response.util';
 
 export const authController = {
   /**
@@ -12,10 +13,7 @@ export const authController = {
       
       const result = await authService.login({ email, password });
       
-      res.json({
-        success: true,
-        data: result,
-      });
+      return successResponse(res, 200, 'Login successful', result);
     } catch (error) {
       next(error);
     }
@@ -30,10 +28,7 @@ export const authController = {
       
       const result = await authService.register(userData);
       
-      res.status(201).json({
-        success: true,
-        data: result,
-      });
+      return successResponse(res, 201, 'Registration successful', result);
     } catch (error) {
       next(error);
     }
@@ -52,10 +47,7 @@ export const authController = {
       
       await authService.logout(userId);
       
-      res.json({
-        success: true,
-        message: 'Logged out successfully',
-      });
+      return successResponse(res, 200, 'Logged out successfully');
     } catch (error) {
       next(error);
     }
@@ -74,10 +66,7 @@ export const authController = {
       
       const user = await authService.getCurrentUser(userId);
       
-      res.json({
-        success: true,
-        data: user,
-      });
+      return successResponse(res, 200, 'User retrieved successfully', user);
     } catch (error) {
       next(error);
     }
